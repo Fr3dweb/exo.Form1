@@ -36,23 +36,28 @@ var_dump($_GET);
 
 class Form2 extends Form
 {
-    public function setRadio(string $name): void
+    /**
+     *
+     * @param string $type
+     * @param string $name
+     * @param string $label
+     * @param string $value
+     * @param string $id
+     * @return void
+     */
+    public function setRadioCheckbox(string $type , string $name, string $label, string $value, string $id = ''): void
     {
-        $this -> form .= "<label>$name</label>";
-        $this-> form .= "<input type='radio' name='$name'>";
-    }
-
-
-    public function setCheckbox(): void
-    {
-        $this -> form .= "<input type='checkbox'>";
+        $name .= '[]';
+        $this -> form .= "<label for='$id'>$label</label>";
+        $this-> form .= "<input type='$type' name='$name' id='$id' value='$value'>";
     }
 }
 
 $form2 = new Form2("post");
-$form2 ->setRadio("Voulez valider ?");
-$form2 -> setRadio("Cocher svp");
-$form2 ->setCheckbox();
+$form2 ->setRadioCheckbox('radio', 'nationality',"FR", 'fr', 'fr');
+$form2 -> setRadioCheckbox('radio','nationality',"ENG" , 'eng', 'eng');
+$form2 ->setRadioCheckbox('checkbox', 'metier',"dev", 'dev', 'dev');
+$form2 -> setRadioCheckbox('checkbox','metier',"mobile" , 'mobile', 'mobile');
 $form2 -> setSubmit();
 echo $form2 -> getForm();
 
